@@ -92,10 +92,6 @@ for cell in range(n_blocks):
 
 print(neighbour_list)
 
-
-
-
-
 # Output: file with id,neigh1,neigh2,...,neighK
 # If id not in file, no neighbours for that id?
 
