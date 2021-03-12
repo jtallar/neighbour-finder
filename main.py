@@ -2,6 +2,8 @@ import numpy as np      # Install numpy
 import objects as obj
 import random
 import math
+import generator as gen
+import sys
 
 # Define constants
 EMPTY_SPACE = -1
@@ -90,10 +92,25 @@ for cell in range(n_blocks):
 
 print(neighbour_list)
 
-
-
-
-
-
 # Output: file with id,neigh1,neigh2,...,neighK
 # If id not in file, no neighbours for that id?
+
+####################################################33
+
+
+if len(sys.argv) > 3:
+    print('You have specified too many arguments')
+    sys.exit()
+
+if len(sys.argv) < 3:
+    print('You need to specify number of particles (N) and simulation area side (L)')
+    sys.exit()
+
+N = int(sys.argv[1])
+L = int(sys.argv[2])
+
+particles = gen.particles(N, L)
+for part in particles:
+    print(part)
+
+gen.data_files(N, L, particles)
