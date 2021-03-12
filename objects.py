@@ -33,7 +33,7 @@ class Molecule(object):
         return self.__repr__()
 
     def __repr__(self):
-        return "Molecule(%s,%s; r=%s)" % (round(self.x, 3), round(self.y, 3), self.r)
+        return "Molecule %s(%.2f,%.2f; r=%.2f)" % (self.id, self.x, self.y, self.r)
 
     # Define hash and eq methods to allow key usage
     def __hash__(self):
