@@ -6,7 +6,7 @@ def particles(n, side):
     part = []
     for _ in range(n):
         point = obj.Point(random.uniform(0, side), random.uniform(0, side))
-        part.append(obj.Particle(point, R, 'abc'))
+        part.append(obj.Particle(point, R, 'green'))
     return part
 
 
@@ -19,17 +19,15 @@ def data_files(n, side, particles):
     for p in particles:
         static_file.write('\n')
         static_file.write(str(p.radius))
-        static_file.write(', ')
+        static_file.write(' ')
         static_file.write(p.property)
     static_file.close()
 
     dynamic_file = open("dynamic.txt", "w")
-    dynamic_file.write('t = 0')
+    dynamic_file.write('0')       # dynamic time
     for p in particles:
         dynamic_file.write('\n')
         dynamic_file.write(str(round(p.point.x, 3)))
         dynamic_file.write(' ')
         dynamic_file.write(str(round(p.point.y, 3)))
-        dynamic_file.write(' ')
-        dynamic_file.write('vx vy')
     dynamic_file.close()
