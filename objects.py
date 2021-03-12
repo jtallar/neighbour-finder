@@ -2,7 +2,7 @@ import math
 
 class Molecule(object):
 
-    def __init__(self, id, x=0, y=0, r=0):
+    def __init__(self, id, x=0, y=0, r=0, prop='oval'):
         """Returns a Molecule object with the given coordinates
 
         Parameters
@@ -21,6 +21,7 @@ class Molecule(object):
         self.x = x
         self.y = y
         self.r = r
+        self.prop = prop
 
     def center_distance(self, other):
         return math.sqrt(math.pow(self.x - other.x, 2) + math.pow(self.y - other.y, 2))
