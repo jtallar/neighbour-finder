@@ -2,14 +2,22 @@ import numpy as np      # Install numpy
 import objects as obj
 import random
 import math
+import json
+import sys
 
-# Simulation area is a square. Its side value is L.
-# Passed by file.
-L = 100
+# Read configurations from file
+with open("config.json") as file:
+    general_params = json.load(file)
 
+dynamic_file = open(general_params["dynamic_file"], "r")
+# First time in file.
+cur_time = float(dynamic_file.readline())
+
+static_file = open(general_params["static_file"], "r")
 # The amount of particles is N.
-# Passed by file.
-N = 20
+N = int(static_file.readline())
+# Simulation area is a square. Its side value is L.
+L = float(static_file.readline())
 
 # The radius for analysis of closeness between particles.
 # Input by arguments.
@@ -21,22 +29,15 @@ Rc = 20
 M = 4
 cell_width = L / M
 
-# Each particle has static and dynamic fields.
-# Information passed by file.
-# Static fields for particle sub-i. Radius and Property.
-Ri = 0.37
-Pi = 1
-
-# Dynamic fields. Position and velocity.
-PXi = 5.67
-PYi = 4.34
-PVXi = 0
-PVYi = 0
-
-# State whether to read or not periodically
+# State whether to read or not periodically.
+# Input by arguments.
 periodic_cells = True
 
-# [M+2][M+1], posta en [1 a M][1 a M]
+# Will iteratively read lines for each particle sub-i
+# Dynamic fields for particle sub-i. Position and speed as  xi yi vxi vyi
+# Static fields for particle sub-i. Radius and Property as  ri pi. Properties not used
+
+# [M+2][M+1], real points in [1:M][1:M]
 #   3    0   1   2   3
 #   15  |12  13  14  15
 #   11  |8   9   10  11     --> X=[X / M + 1][X % M + 1]
@@ -46,32 +47,40 @@ periodic_cells = True
 # ^ 
 # y, x -->
 
-# TODO: Get particle pos from file
-(min_coord, max_coord) = (0, L)
-part = [(69.78,64.23),(71.10,36.66),(71.70,28.38),(2.46,25.76),(92.59,46.57),(65.41,5.32),(76.89,61.07),(84.55,15.98),(44.61,35.58),(15.88,71.86),(50.59,65.66),(18.67,99.61),(81.27,22.87),(52.95,13.96),(89.02,63.58),(69.69,8.60),(20.46,80.11),(48.49,44.08),(4.03,13.31),(23.20,5.13)]
+# Top two radius will be saved to ensure condition applies correctly.
+two_max_radius = [0, 0]
 
 head_matrix = np.full((M + 2, M + 1), None)
 for id in range(N):
-    # (x, y) = (random.uniform(min_coord, max_coord), random.uniform(min_coord, max_coord))
-    (x, y) = part[id]
+    (x, y) = [float(i) for i in dynamic_file.readline().split()] # TODO: When speed added to generator.py, write (x, y, vx, vy) = ...
+    rad = float(static_file.readline().split()[0]) # Ignoring particle property
+    # Save top two radius
+    if rad > two_max_radius[0]:
+        two_max_radius.pop(0)
+        two_max_radius.append(rad)
+        two_max_radius.sort()
+
     cell_index = int(x / cell_width) + int(y / cell_width) * M
     (row, col) = (int(cell_index / M + 1), int(cell_index % M + 1))
     # Molecule ids go from 1 to N
-    head_matrix[row][col] = obj.MoleculeNode(obj.Molecule(id + 1, x, y), head_matrix[row][col])
+    head_matrix[row][col] = obj.MoleculeNode(obj.Molecule(id + 1, x, y, rad), head_matrix[row][col])
     # If periodic cells off, skip
     if not periodic_cells:
         continue
     # Copy to repeated position if needed
     if row == 1:
-        head_matrix[-1][col] = obj.MoleculeNode(obj.Molecule(id + 1, x, y + L), head_matrix[-1][col])
+        head_matrix[-1][col] = obj.MoleculeNode(obj.Molecule(id + 1, x, y + L, rad), head_matrix[-1][col])
     elif row == M:
-        head_matrix[0][col] = obj.MoleculeNode(obj.Molecule(id + 1, x, y - L), head_matrix[0][col])
+        head_matrix[0][col] = obj.MoleculeNode(obj.Molecule(id + 1, x, y - L, rad), head_matrix[0][col])
     if col == M:
-        head_matrix[row][0] = obj.MoleculeNode(obj.Molecule(id + 1, x - L, y), head_matrix[row][0])
+        head_matrix[row][0] = obj.MoleculeNode(obj.Molecule(id + 1, x - L, y, rad), head_matrix[row][0])
         if row == 1:
-            head_matrix[-1][0] = obj.MoleculeNode(obj.Molecule(id + 1, x - L, y + L), head_matrix[-1][0])
+            head_matrix[-1][0] = obj.MoleculeNode(obj.Molecule(id + 1, x - L, y + L, rad), head_matrix[-1][0])
         elif row == M:
-            head_matrix[0][0] = obj.MoleculeNode(obj.Molecule(id + 1, x - L, y - L), head_matrix[0][0])
+            head_matrix[0][0] = obj.MoleculeNode(obj.Molecule(id + 1, x - L, y - L, rad), head_matrix[0][0])
+
+dynamic_file.close()
+static_file.close()
 
 neighbour_list = [set() for index in range(N)]
 for cell in range(M * M):
@@ -101,10 +110,9 @@ for cell in range(M * M):
                 next_cell_cur = next_cell_cur.next
             cell_cur = cell_cur.next
 
-out_file = open("out.txt", 'w')
-id = 1
-for neighbour_set in neighbour_list:
-    ids_string = ','.join(str(s) for s in neighbour_set)
-    print(f'{id}->{ids_string}', file=out_file)
-    id += 1
-out_file.close()
+with open(general_params["output_file"], 'w') as out_file:
+    id = 1
+    for neighbour_set in neighbour_list:
+        ids_string = ','.join(str(s) for s in neighbour_set)
+        print(f'{id}->{ids_string}', file=out_file)
+        id += 1
