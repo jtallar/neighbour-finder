@@ -1,32 +1,19 @@
-import objects as obj
-import random
+import genLib as gen
+import sys
 
-R = 0.5
-def particles(n, side):
-    part = []
-    for i in range(n):
-        part.append(obj.Molecule(i, random.uniform(0, side), random.uniform(0, side), R))
-    return part
+if len(sys.argv) > 3:
+    print('You have specified too many arguments')
+    sys.exit(1)
 
+if len(sys.argv) < 3:
+    print('You need to specify number of particles (N) and simulation area side (L)')
+    sys.exit(2)
 
-#Generate dynamic and static files, reading N and L from arg
-def data_files(n, side, particles):
-    static_file = open("static.txt", "w")
-    static_file.write(str(n))
-    static_file.write('\n')
-    static_file.write(str(side))
-    for p in particles:
-        static_file.write('\n')
-        static_file.write(str(p.r))
-        static_file.write(' ')
-        static_file.write(p.prop)
-    static_file.close()
+N = int(sys.argv[1])
+L = int(sys.argv[2])
 
-    dynamic_file = open("dynamic.txt", "w")
-    dynamic_file.write('0')       # dynamic time
-    for p in particles:
-        dynamic_file.write('\n')
-        dynamic_file.write(str(round(p.x, 3)))
-        dynamic_file.write(' ')
-        dynamic_file.write(str(round(p.y, 3)))
-    dynamic_file.close()
+particles = gen.particles(N, L)
+for part in particles:
+    print(part)
+
+gen.data_files(N, L, particles)
