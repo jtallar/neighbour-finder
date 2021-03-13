@@ -28,7 +28,8 @@ with open("filenameConfig.json") as file:
     filename_params = json.load(file)
 
 particles = gen.particles(N, L, rad)
-for part in particles:
-    print(part)
+# for part in particles:
+#     print(part)
 
 gen.data_files(N, L, particles, filename_params)
+print(f'Generated files {filename_params["static_file"]} and {filename_params["dynamic_file"]}')
