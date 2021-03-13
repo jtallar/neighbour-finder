@@ -1,7 +1,5 @@
 import numpy as np      # Install numpy
 import objects as obj
-import random
-import math
 import json
 import sys
 
