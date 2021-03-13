@@ -136,3 +136,6 @@ static.txt
 dynamic.txt
 out.txt
 simulation.xyz
+
+# Ovito session info
+simulation.ovito
