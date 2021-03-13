@@ -3,47 +3,51 @@
 ### First simulation of static particles distance applying Cell Index Method
 
 ## What to Install
-`python -m pip install numpy`         # TODO: Change to generic command
+`python3 -m pip install numpy`
+### Versions
+`python 3.8`
 
 ## Previous filename configuration
 `filenameConfig.json` contains the names of all the files generated and used throughout the simulation.
 They can only be modified before first execution.
 
 ## Generate random particles (CIM input files)
-`python generator.py N L`
+- `python3 generator.py N L`
+- `pip3 install -U ovito`
+- Download and install OVITO from: https://www.ovito.org/
 
 Where 
 - `N` is the number of particles to simulate
 - `L` is the side lenght
 
-Eg: `python generator.py 150 100`
+Eg: `python3 generator.py 150 100`
 
 ## Apply Cell Index Method on recently generated particles
-`python cim.py Rc (periodic|not_periodic) [M]`
+`python3 cim.py Rc (periodic|not_periodic) [M]`
 
 Where 
 - `Rc` is the radio of interaction to study
 - `periodic|not_periodic` is the edge periodic condition (periodic or not)
 - `[M]` is an optional parameter to specify block side count
 
-Eg: `python cim.py 50 periodic 2`
+Eg: `python3 cim.py 50 periodic 2`
 
 ## Obtain every pair of particle distance by brute force
-`python bruteForce.py Rc (periodic|not_periodic)`
+`python3 bruteForce.py Rc (periodic|not_periodic)`
 
 Where 
 - `Rc` is the radio of interaction to study
 - `periodic|not_periodic` is the edge periodic condition (periodic or not)
 
-Eg: `python bruteForce.py 50 periodic`
+Eg: `python3 bruteForce.py 50 periodic`
 
-## Originate OVITO input file to simulate results
-`python ovito.py id`
+## Originate OVITO '.xyz' input file to simulate results
+`python3 ovito.py id`
 
 Where 
 - `id` is the particle number that wants to be studied
 
-Eg: `python ovito.py 32`
+Eg: `python3 ovito.py 32`
 
 
 ### Extra Material
