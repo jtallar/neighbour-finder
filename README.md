@@ -3,7 +3,9 @@
 ### First simulation of static particles distance applying Cell Index Method
 
 ## What to Install
-`python3 -m pip install numpy`
+- `python3 -m pip install numpy`
+- `pip3 install -U ovito`
+- Download and install OVITO from: https://www.ovito.org/
 ### Versions
 `python 3.8`
 
@@ -12,9 +14,7 @@
 They can only be modified before first execution.
 
 ## Generate random particles (CIM input files)
-- `python3 generator.py N L`
-- `pip3 install -U ovito`
-- Download and install OVITO from: https://www.ovito.org/
+`python3 generator.py N L`
 
 Where 
 - `N` is the number of particles to simulate
