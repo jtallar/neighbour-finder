@@ -17,7 +17,7 @@ def data_files(n, side, particles, filename_json):
     static_file.write(str(side))
     for p in particles:
         static_file.write('\n')
-        static_file.write(str(p.r))
+        static_file.write(str(round(p.r, 3)))
         static_file.write(' ')
         static_file.write(p.prop)
     static_file.close()
