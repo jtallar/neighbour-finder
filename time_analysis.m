@@ -112,7 +112,7 @@ ylabel("tc [s]");
 
 ############################################################################################################
 # Take multiple M + brute force with one N value.
-# tc = f(M x M) With N = 13. M <= 13 because of condition
+# tc = f(M x M) With N = 500. M <= 13 because of condition
 # Using onegen, same data for ALL, as previous results show similar values with more deviation
 N = 500;
 
@@ -126,14 +126,12 @@ M = 1; # -> CIM
 # With same gen, M = 1, periodic
 times_m_1_periodic = [0.8223366737365723, 0.8115754127502441, 0.8365035057067871, 0.8398253917694092, 0.8119661808013916];
 # With same gen, M = 1, not periodic
-##times_m_1_not_periodic = [0.09344887733459473, 0.09327006340026855, 0.09583425521850586, 0.09286141395568848, 0.09281063079833984];
 times_m_1_not_periodic = [0.09274649620056152, 0.09283280372619629, 0.09365391731262207, 0.09128308296203613, 0.09389281272888184];
 
 M = 2; # -> CIM
 # With same gen, CIM, periodic
 times_m_2_periodic = [0.21058106422424316, 0.2094871997833252, 0.20670080184936523, 0.2036740779876709, 0.20656228065490723];
 # With same gen, CIM, not periodic
-##times_m_2_not_periodic = [0.09294676780700684, 0.0929265022277832, 0.09201955795288086, 0.10132241249084473, 0.09536433219909668];
 times_m_2_not_periodic = [0.09002804756164551, 0.09160828590393066, 0.09143590927124023, 0.09331846237182617, 0.09473657608032227];
 
 M = 3; # -> CIM
@@ -202,7 +200,7 @@ times_m_13_periodic = [0.010181188583374023, 0.010443687438964844, 0.01012206077
 # With same gen, CIM, not periodic
 times_m_13_not_periodic = [0.009809255599975586, 0.009679794311523438, 0.009540319442749023, 0.01059722900390625, 0.009660005569458008];
 
-figure('name', "Execution time with N = 500 - Periodic active")
+figure('name', "Execution time with N = 500, d=1.25 - Periodic active")
 x_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
 y_list = [mean(times_m_1_periodic), mean(times_m_2_periodic), mean(times_m_3_periodic), mean(times_m_4_periodic), mean(times_m_5_periodic), mean(times_m_6_periodic), mean(times_m_7_periodic), mean(times_m_8_periodic), mean(times_m_9_periodic), mean(times_m_10_periodic), mean(times_m_11_periodic), mean(times_m_12_periodic), mean(times_m_13_periodic)];
 delta_y_list = [std(times_m_1_periodic), std(times_m_2_periodic), std(times_m_3_periodic), std(times_m_4_periodic), std(times_m_5_periodic), std(times_m_6_periodic), std(times_m_7_periodic), std(times_m_8_periodic), std(times_m_9_periodic), std(times_m_10_periodic), std(times_m_11_periodic), std(times_m_12_periodic), std(times_m_13_periodic)];
@@ -214,7 +212,7 @@ hold on
 errorbar(x_list, repmat(mean(times_brute_force_periodic), 1, 13), repmat(std(times_brute_force_periodic), 1, 13))
 hold off
 
-figure('name', "Execution time with N = 500 - Periodic INactive")
+figure('name', "Execution time with N = 500, d=1.25 - Periodic INactive")
 y_list = [mean(times_m_1_not_periodic), mean(times_m_2_not_periodic), mean(times_m_3_not_periodic), mean(times_m_4_not_periodic), mean(times_m_5_not_periodic), mean(times_m_6_not_periodic), mean(times_m_7_not_periodic), mean(times_m_8_not_periodic), mean(times_m_9_not_periodic), mean(times_m_10_not_periodic), mean(times_m_11_not_periodic), mean(times_m_12_not_periodic), mean(times_m_13_not_periodic)];
 delta_y_list = [std(times_m_1_not_periodic), std(times_m_2_not_periodic), std(times_m_3_not_periodic), std(times_m_4_not_periodic), std(times_m_5_not_periodic), std(times_m_6_not_periodic), std(times_m_7_not_periodic), std(times_m_8_not_periodic), std(times_m_9_not_periodic), std(times_m_10_not_periodic), std(times_m_11_not_periodic), std(times_m_12_not_periodic), std(times_m_13_not_periodic)];
 errorbar(x_list, y_list, delta_y_list)
@@ -224,3 +222,109 @@ ylabel("tc [s]");
 hold on
 errorbar(x_list, repmat(mean(times_brute_force_not_periodic), 1, 13), repmat(std(times_brute_force_not_periodic), 1, 13))
 hold off
+
+############################################################################################################
+# Take some M another N value.
+# tc = f(M x M) With N = 1000. M <= 13 because of condition
+# Using onegen, same data for ALL, as previous results show similar values with more deviation
+N = 1000;
+
+M = 2; # -> CIM
+# With same gen, CIM, periodic
+times_m_2_periodic = [0.8330726623535156, 0.8850812911987305, 0.8320260047912598, 0.8356661796569824, 0.8252713680267334];
+# With same gen, CIM, not periodic
+times_m_2_not_periodic = [0.3695342540740967, 0.376056432723999, 0.3771860599517822, 0.36344337463378906, 0.3791849613189697];
+
+M = 5; # -> CIM
+# With same gen, CIM, periodic
+times_m_5_periodic = [0.14080810546875, 0.13909554481506348, 0.14325523376464844, 0.14111709594726562, 0.14478802680969238];
+# With same gen, CIM, not periodic
+times_m_5_not_periodic = [0.11115145683288574, 0.11257171630859375, 0.11686468124389648, 0.10946917533874512, 0.11298203468322754];
+
+M = 8; # -> CIM
+# With same gen, CIM, periodic
+times_m_8_periodic = [0.06317996978759766, 0.06237983703613281, 0.06258487701416016, 0.06301450729370117, 0.06225132942199707];
+# With same gen, CIM, not periodic
+times_m_8_not_periodic = [0.05402517318725586, 0.05427074432373047, 0.05423927307128906, 0.054076433181762695, 0.05269312858581543];
+
+M = 10; # -> CIM
+# With same gen, CIM, periodic
+times_m_10_periodic = [0.043503761291503906, 0.04454970359802246, 0.0451204776763916, 0.045270442962646484, 0.04576230049133301];
+# With same gen, CIM, not periodic
+times_m_10_not_periodic = [0.038770198822021484, 0.03910636901855469, 0.03928208351135254, 0.03941631317138672, 0.03973841667175293];
+
+M = 13; # -> CIM
+# With same gen, CIM, periodic
+times_m_13_periodic = [0.03107142448425293, 0.03802180290222168, 0.03125643730163574, 0.03195452690124512, 0.03169870376586914];
+# With same gen, CIM, not periodic
+times_m_13_not_periodic = [0.028035402297973633, 0.0281064510345459, 0.028543949127197266, 0.02826094627380371, 0.028365373611450195];
+
+figure('name', "Execution time with N = 1000, d=2.5 - Periodic active")
+x_list = [2, 5, 8, 10, 13];
+y_list = [mean(times_m_2_periodic), mean(times_m_5_periodic), mean(times_m_8_periodic), mean(times_m_10_periodic), mean(times_m_13_periodic)];
+delta_y_list = [std(times_m_2_periodic), std(times_m_5_periodic), std(times_m_8_periodic), std(times_m_10_periodic), std(times_m_13_periodic)];
+errorbar(x_list, y_list, delta_y_list)
+title("tc = f(M)");
+xlabel("M");
+ylabel("tc [s]");
+
+figure('name', "Execution time with N = 1000, d=2.5 - Periodic INactive")
+y_list = [mean(times_m_2_not_periodic), mean(times_m_5_not_periodic), mean(times_m_8_not_periodic), mean(times_m_10_not_periodic), mean(times_m_13_not_periodic)];
+delta_y_list = [std(times_m_2_not_periodic), std(times_m_5_not_periodic), std(times_m_8_not_periodic), std(times_m_10_not_periodic), std(times_m_13_not_periodic)];
+errorbar(x_list, y_list, delta_y_list)
+title("tc = f(M)");
+xlabel("M");
+ylabel("tc [s]");
+
+############################################################################################################
+# Take some M another N value.
+# tc = f(M x M) With N = 200. M <= 13 because of condition
+# Using onegen, same data for ALL, as previous results show similar values with more deviation
+N = 200;
+
+M = 2; # -> CIM
+# With same gen, CIM, periodic
+times_m_2_periodic = [0.03507494926452637, 0.034348487854003906, 0.03500676155090332, 0.033965110778808594, 0.034429073333740234];
+# With same gen, CIM, not periodic
+times_m_2_not_periodic = [0.01528477668762207, 0.01559305191040039, 0.015216588973999023, 0.015537500381469727, 0.015052556991577148];
+
+M = 5; # -> CIM
+# With same gen, CIM, periodic
+times_m_5_periodic = [0.006663084030151367, 0.006910562515258789, 0.0067784786224365234, 0.006922006607055664, 0.0069522857666015625];
+# With same gen, CIM, not periodic
+times_m_5_not_periodic = [0.0054721832275390625, 0.005264997482299805, 0.0052721500396728516, 0.005248069763183594, 0.005315303802490234];
+
+M = 8; # -> CIM
+# With same gen, CIM, periodic
+times_m_8_periodic = [0.0039348602294921875, 0.0037217140197753906, 0.003806591033935547, 0.0038344860076904297, 0.003838062286376953];
+# With same gen, CIM, not periodic
+times_m_8_not_periodic = [0.003251314163208008, 0.0032062530517578125, 0.0033006668090820312, 0.003279447555541992, 0.0032389163970947266];
+
+M = 10; # -> CIM
+# With same gen, CIM, periodic
+times_m_10_periodic = [0.003107309341430664, 0.0031120777130126953, 0.003159046173095703, 0.0031626224517822266, 0.0031456947326660156];
+# With same gen, CIM, not periodic
+times_m_10_not_periodic = [0.002801179885864258, 0.0028984546661376953, 0.0029196739196777344, 0.0028162002563476562, 0.0028438568115234375];
+
+M = 13; # -> CIM
+# With same gen, CIM, periodic
+times_m_13_periodic = [0.0027577877044677734, 0.0027942657470703125, 0.0027799606323242188, 0.0027005672454833984, 0.0027360916137695312];
+# With same gen, CIM, not periodic
+times_m_13_not_periodic = [0.0025818347930908203, 0.002571582794189453, 0.0025751590728759766, 0.002593994140625, 0.0026798248291015625];
+
+figure('name', "Execution time with N = 200, d=0.5 - Periodic active")
+x_list = [2, 5, 8, 10, 13];
+y_list = [mean(times_m_2_periodic), mean(times_m_5_periodic), mean(times_m_8_periodic), mean(times_m_10_periodic), mean(times_m_13_periodic)];
+delta_y_list = [std(times_m_2_periodic), std(times_m_5_periodic), std(times_m_8_periodic), std(times_m_10_periodic), std(times_m_13_periodic)];
+errorbar(x_list, y_list, delta_y_list)
+title("tc = f(M)");
+xlabel("M");
+ylabel("tc [s]");
+
+figure('name', "Execution time with N = 200, d=0.5 - Periodic INactive")
+y_list = [mean(times_m_2_not_periodic), mean(times_m_5_not_periodic), mean(times_m_8_not_periodic), mean(times_m_10_not_periodic), mean(times_m_13_not_periodic)];
+delta_y_list = [std(times_m_2_not_periodic), std(times_m_5_not_periodic), std(times_m_8_not_periodic), std(times_m_10_not_periodic), std(times_m_13_not_periodic)];
+errorbar(x_list, y_list, delta_y_list)
+title("tc = f(M)");
+xlabel("M");
+ylabel("tc [s]");
