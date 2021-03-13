@@ -1,6 +1,7 @@
 import objects as obj
 import json
 import sys
+import time
 
 if len(sys.argv) != 3:
     print('Wrong number of args! Must run with\npython3 bruteForce.py Rc (periodic|not_periodic)')
@@ -32,6 +33,9 @@ N = int(static_file.readline())
 # Simulation area is a square. Its side value is L.
 L = float(static_file.readline())
 
+# Start chronometer
+start_time = time.time()
+
 # Will iteratively read lines for each particle sub-i
 # Dynamic fields for particle sub-i. Position and speed as  xi yi vxi vyi
 # Static fields for particle sub-i. Radius and Property as  ri pi. Properties not used
@@ -57,10 +61,13 @@ for first in range(0, N):
             neighbour_list[particles[first].id - 1].add(particles[second].id)
             neighbour_list[particles[second].id - 1].add(particles[first].id)        
 
-with open(filename_params["output_cim_file"], 'w') as out_file:
+end_time = time.time()
+print(f'Brute Force Execution time \t ⏱  {round(end_time - start_time, 6)} seconds')
+
+with open(filename_params["output_neighbours_file"], 'w') as out_file:
     id = 1
     for neighbour_set in neighbour_list:
         ids_string = ','.join(str(s) for s in neighbour_set)
         print(f'{id}->{ids_string}', file=out_file)
         id += 1
-    print(f'Wrote output at {filename_params["output_cim_file"]}')
+    print(f'Wrote output at {filename_params["output_neighbours_file"]}')

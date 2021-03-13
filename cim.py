@@ -2,6 +2,7 @@ import numpy as np      # Install numpy
 import objects as obj
 import json
 import sys
+import time
 
 if len(sys.argv) < 3 or len(sys.argv) > 4:
     print('Wrong number of args! Must run with\npython3 cim.py Rc (periodic|not_periodic) [M]')
@@ -32,6 +33,9 @@ static_file = open(filename_params["static_file"], "r")
 N = int(static_file.readline())
 # Simulation area is a square. Its side value is L.
 L = float(static_file.readline())
+
+# Start chronometer
+start_time = time.time()
 
 # Top two radius will be saved to ensure condition applies correctly.
 two_max_radius = [0, 0]
@@ -135,10 +139,13 @@ for cell in range(M * M):
                 next_cell_cur = next_cell_cur.next
             cell_cur = cell_cur.next
 
-with open(filename_params["output_cim_file"], 'w') as out_file:
+end_time = time.time()
+print(f'CIM Execution time \t\t ⏱  {round(end_time - start_time, 6)} seconds')
+
+with open(filename_params["output_neighbours_file"], 'w') as out_file:
     id = 1
     for neighbour_set in neighbour_list:
         ids_string = ','.join(str(s) for s in neighbour_set)
         print(f'{id}->{ids_string}', file=out_file)
         id += 1
-    print(f'Wrote output at {filename_params["output_cim_file"]}')
+    print(f'Wrote output at {filename_params["output_neighbours_file"]}')
