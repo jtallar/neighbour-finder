@@ -98,13 +98,13 @@ for id in range(N):
     # Copy to repeated position if needed
     if row == 1:
         head_matrix[-1][col] = obj.MoleculeNode(obj.Molecule(id + 1, x, y + L, rad), head_matrix[-1][col])
-    elif row == M:
+    if row == M: # Using if, not elif, as M can be 1
         head_matrix[0][col] = obj.MoleculeNode(obj.Molecule(id + 1, x, y - L, rad), head_matrix[0][col])
     if col == M:
         head_matrix[row][0] = obj.MoleculeNode(obj.Molecule(id + 1, x - L, y, rad), head_matrix[row][0])
         if row == 1:
             head_matrix[-1][0] = obj.MoleculeNode(obj.Molecule(id + 1, x - L, y + L, rad), head_matrix[-1][0])
-        elif row == M:
+        if row == M: # Using if, not elif, as M can be 1
             head_matrix[0][0] = obj.MoleculeNode(obj.Molecule(id + 1, x - L, y - L, rad), head_matrix[0][0])
 
 dynamic_file.close()
