@@ -1,16 +1,15 @@
 # Simulacion de Sistemas
-## Trabajo Practico N°1
-### "Busqueda Eficiente de Particulas Vecinas"
-First simulation of static particles distance applying Cell Index Method
+## Trabajo Practico N°1: "Busqueda Eficiente de Particulas Vecinas"
+### First simulation of static particles distance applying Cell Index Method
 
 ## What to Install
 python -m pip install numpy         # TODO: Change to generic command
 
 ## Previous filename configuration
-filenameConfig.json contains the names of all the files generated and used throughout the simulation
-They can only be modified before first execution
+filenameConfig.json contains the names of all the files generated and used throughout the simulation.
+They can only be modified before first execution.
 
-## Generate random particles --> dynamic and static files
+## Generate random particles (CIM input files)
 `python generator.py N L`
 
 Where 
@@ -47,5 +46,5 @@ Where
 Eg: `python ovito.py 32`
 
 
-## Extra Material
-### In plots folder, all the execution times of the simulations under different conditions specified in each case
+### Extra Material
+In plots folder, all the execution times of the simulations under different conditions specified in each case
