@@ -2,10 +2,10 @@ import objects as obj
 import random
 
 MAX_RADIUS = 1
-def particles(n, side):
+def particles(n, side, rad):
     part = []
     for i in range(n):
-        part.append(obj.Molecule(i + 1, random.uniform(0, side), random.uniform(0, side), random.uniform(0, MAX_RADIUS)))
+        part.append(obj.Molecule(i + 1, random.uniform(0, side), random.uniform(0, side), rad if rad else random.uniform(0, MAX_RADIUS)))
     return part
 
 # TODO: Check rounding to 4 decimals.
