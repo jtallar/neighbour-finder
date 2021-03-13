@@ -212,6 +212,8 @@ hold on
 errorbar(x_list, repmat(mean(times_brute_force_periodic), 1, 13), repmat(std(times_brute_force_periodic), 1, 13))
 hold off
 
+# Con contornos periodicos, a partir de M=3, es mejor CIM que fuerza bruta
+
 figure('name', "Execution time with N = 500, d=1.25 - Periodic INactive")
 y_list = [mean(times_m_1_not_periodic), mean(times_m_2_not_periodic), mean(times_m_3_not_periodic), mean(times_m_4_not_periodic), mean(times_m_5_not_periodic), mean(times_m_6_not_periodic), mean(times_m_7_not_periodic), mean(times_m_8_not_periodic), mean(times_m_9_not_periodic), mean(times_m_10_not_periodic), mean(times_m_11_not_periodic), mean(times_m_12_not_periodic), mean(times_m_13_not_periodic)];
 delta_y_list = [std(times_m_1_not_periodic), std(times_m_2_not_periodic), std(times_m_3_not_periodic), std(times_m_4_not_periodic), std(times_m_5_not_periodic), std(times_m_6_not_periodic), std(times_m_7_not_periodic), std(times_m_8_not_periodic), std(times_m_9_not_periodic), std(times_m_10_not_periodic), std(times_m_11_not_periodic), std(times_m_12_not_periodic), std(times_m_13_not_periodic)];
@@ -222,6 +224,8 @@ ylabel("tc [s]");
 hold on
 errorbar(x_list, repmat(mean(times_brute_force_not_periodic), 1, 13), repmat(std(times_brute_force_not_periodic), 1, 13))
 hold off
+
+# Sin contornos periodicos, siempre es mejor CIM que fuerza bruta
 
 ############################################################################################################
 # Take some M another N value.

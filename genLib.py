@@ -2,6 +2,9 @@ import objects as obj
 import random
 
 MAX_RADIUS = 1
+# TODO: En un futuro, deberíamos chequear que no haya superposición con ninguna otra partícula, 
+# que la distancia entre centros sea menor a la suma de sus radios. 
+# Podría ponerse que si en "1000 veces" no pudo poner partícula por superposición, cortar porque no hay lugares.
 def particles(n, side, rad):
     part = []
     for i in range(n):
