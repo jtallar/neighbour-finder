@@ -32,7 +32,7 @@ if id > N or id < 0:
     print('Particle id must be a number between 0 and', N)
     sys.exit(3)
 
-neighbours_file = open(filename_params["output_cim_file"], "r")
+neighbours_file = open(filename_params["output_neighbours_file"], "r")
 lines = neighbours_file.read().split('\n')
 neighbours_file.close()
 print(lines[id-1])
@@ -59,8 +59,6 @@ dynamic_file.close()
 static_file.close()
 ovito_file.close()
     
-
-
 # particle_radius = []
 # for line in neighbours_file:
 #     rad = int(line.split()[0]) # Ignoring particle property
