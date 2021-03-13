@@ -75,7 +75,7 @@ Generates file (default name: `simulation.xyz`) with simulation figure.
 ## 4. Open '.xyz' with Ovito
 To view the simulation figure, follow this steps:
 1. Run Ovito.
-2. Load the `.xyz` file previously generated.
+2. Load the `.xyz` file previously generated. You can run and load the file with `./bin/ovito simulation.xyz` or run Ovito and then use Load File option.
 3. Configure the file column mapping as follows
     - Column 1 - Radius
     - Column 2 - Position - X
