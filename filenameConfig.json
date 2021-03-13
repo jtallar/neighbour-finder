@@ -1,5 +1,6 @@
 {
 	"static_file": "static.txt",
     "dynamic_file": "dynamic.txt",
-    "output_neighbours_file": "out.txt"
+    "output_neighbours_file": "out.txt",
+    "ovito_xyz_file": "simulation.xyz"
 }
