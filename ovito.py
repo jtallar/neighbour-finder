@@ -55,6 +55,8 @@ for i in range(N):
     ovi_line = '\n'+r+x+y+color
     ovito_file.write(ovi_line)
 
+print(f'Generated {filename_params["ovito_xyz_file"]}.')
+
 dynamic_file.close()
 static_file.close()
 ovito_file.close()

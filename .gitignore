@@ -130,3 +130,9 @@ dmypy.json
 
 # Idea folder
 .idea
+
+# Generated .txt and .xyz files
+static.txt
+dynamic.txt
+out.txt
+simulation.xyz
