@@ -19,7 +19,7 @@ def data_files(n, side, particles, filename_json):
     static_file.write(str(side))
     for p in particles:
         static_file.write('\n')
-        static_file.write(str(round(p.r, 4)))
+        static_file.write('%.4F' % p.r)
         static_file.write(' ')
         static_file.write(p.prop)
     static_file.close()
@@ -28,9 +28,9 @@ def data_files(n, side, particles, filename_json):
     dynamic_file.write('0')       # dynamic time
     for p in particles:
         dynamic_file.write('\n')
-        dynamic_file.write(str(round(p.x, 4)))
+        dynamic_file.write('%.7E' % p.x)
         dynamic_file.write(' ')
-        dynamic_file.write(str(round(p.y, 4)))
+        dynamic_file.write('%.7E' % p.y)
         dynamic_file.write(' ')
         dynamic_file.write(str(0)) # Vx
         dynamic_file.write(' ')
