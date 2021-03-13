@@ -62,7 +62,7 @@ for first in range(0, N):
             neighbour_list[particles[second].id - 1].add(particles[first].id)        
 
 end_time = time.time()
-print(f'Brute Force Execution time \t ⏱  {round(end_time - start_time, 6)} seconds')
+print(f'Brute Force Execution time \t ⏱  {end_time - start_time)} seconds')
 
 with open(filename_params["output_neighbours_file"], 'w') as out_file:
     id = 1

@@ -140,7 +140,7 @@ for cell in range(M * M):
             cell_cur = cell_cur.next
 
 end_time = time.time()
-print(f'CIM Execution time \t\t ⏱  {round(end_time - start_time, 6)} seconds')
+print(f'CIM Execution time \t\t ⏱  {end_time - start_time} seconds')
 
 with open(filename_params["output_neighbours_file"], 'w') as out_file:
     id = 1
