@@ -73,5 +73,18 @@ Files with static and dynamic data, and list of neighbours file
 ### Output
 Generates file (default name: `simulation.xyz`) with simulation figure.
 
+## 4. Open '.xyz' with Ovito
+To view the simulation figure, follow this steps:
+1. Run Ovito.
+2. Load the `.xyz` file previously generated.
+3. Configure the file column mapping as follows
+    - Column 1 - Radius
+    - Column 2 - Position - X
+    - Column 3 - Position - Y
+    - Column 4 - Color - R
+    - Column 5 - Color - G
+    - Column 6 - Color - B
+Once the figure shows, you can Render Active Viewport, where you can save it as a `.png` file.
+
 ### Extra Material
 In `plots` folder, all the execution times of the simulations under different conditions specified in each case.
