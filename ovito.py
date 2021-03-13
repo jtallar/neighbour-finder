@@ -40,19 +40,20 @@ neigh = lines[id-1].split('>')[1].split(',')
 
 ovito_file = open(filename_params["ovito_xyz_file"], "w")
 ovito_file.write(str(N+4))
-corners = '\n\n'+C+'0 0'+WHITE+'\n'+C+'0 '+str(L)+WHITE+'\n'+C+str(L)+' 0'+WHITE+'\n'+C+str(L)+' '+str(L)+WHITE
+corners = '\n\n'+C+'0 0 0'+WHITE+'\n'+C+'0 '+str(L)+' 0'+WHITE+'\n'+C+str(L)+' 0 0'+WHITE+'\n'+C+str(L)+' '+str(L)+' 0'+WHITE
 ovito_file.write(corners)
 
 for i in range(N):
     line = dynamic_file.readline().split(' ')
     (x,y,r) = (line[0]+' ', line[1]+' ', static_file.readline().split()[0]+' ')
+    p_id = str(i+1)+' '
     if str(i+1) in neigh:
         color = GREEN
     elif i+1 == id:
         color = RED
     else: 
         color = WHITE
-    ovi_line = '\n'+r+x+y+color
+    ovi_line = '\n'+r+x+y+p_id+color
     ovito_file.write(ovi_line)
 
 print(f'Generated {filename_params["ovito_xyz_file"]}.')

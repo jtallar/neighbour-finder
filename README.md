@@ -80,9 +80,10 @@ To view the simulation figure, follow this steps:
     - Column 1 - Radius
     - Column 2 - Position - X
     - Column 3 - Position - Y
-    - Column 4 - Color - R
-    - Column 5 - Color - G
-    - Column 6 - Color - B
+    - Column 4 - Particle Identifier
+    - Column 5 - Color - R
+    - Column 6 - Color - G
+    - Column 7 - Color - B
 Once the figure shows, you can Render Active Viewport, where you can save it as a `.png` file.
 
 ### Extra Material
