@@ -4,7 +4,7 @@ import sys
 import time
 
 if len(sys.argv) != 3:
-    print('Wrong number of args! Must run with\npython3 bruteForce.py Rc (periodic|not_periodic)')
+    print('Wrong number of args!\nYou need to specify interaction radio (Rc) and edge periodic condition (periodic or not_periodic).\nMust run with\n\tpython3 bruteForce.py Rc (periodic|not_periodic)')
     sys.exit(1)
 
 # The radius for analysis of closeness between particles.

@@ -5,7 +5,7 @@ import sys
 import time
 
 if len(sys.argv) < 3 or len(sys.argv) > 4:
-    print('Wrong number of args! Must run with\npython3 cim.py Rc (periodic|not_periodic) [M]')
+    print('Wrong number of args!\nYou need to specify interaction radio (Rc), edge periodic condition (periodic or not_periodic) and (optionally) block side count (M).\nMust run with\n\tpython3 cim.py Rc (periodic|not_periodic) [M]')
     sys.exit(1)
 
 # The radius for analysis of closeness between particles.
