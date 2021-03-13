@@ -4,7 +4,6 @@
 
 ## What to Install
 - `python3 -m pip install numpy`
-- `pip3 install -U ovito` #TODO: Creo que no hace falta
 - Download and install OVITO from: https://www.ovito.org/
 ### Versions
 `python 3.8`
