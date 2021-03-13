@@ -29,4 +29,8 @@ def data_files(n, side, particles, filename_json):
         dynamic_file.write(str(round(p.x, 3)))
         dynamic_file.write(' ')
         dynamic_file.write(str(round(p.y, 3)))
+        dynamic_file.write(' ')
+        dynamic_file.write(str(0)) # Vx
+        dynamic_file.write(' ')
+        dynamic_file.write(str(0)) # Vy
     dynamic_file.close()

@@ -85,7 +85,7 @@ cell_width = L / M
 # Dynamic fields for particle sub-i. Position and speed as  xi yi vxi vyi
 head_matrix = np.full((M + 2, M + 1), None)
 for id in range(N):
-    (x, y) = [float(i) for i in dynamic_file.readline().split()] # TODO: When speed added to generator.py, write (x, y, vx, vy) = ...
+    (x, y, vx, vy) = [float(i) for i in dynamic_file.readline().split()]
     rad = particle_radius[id]
 
     cell_index = int(x / cell_width) + int(y / cell_width) * M
