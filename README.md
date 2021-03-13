@@ -40,7 +40,8 @@ Files with static and dynamic data
 
 ### Output
 Generates file (default name: `out.txt`) where each line represents a particle and has each particle id followed by its neighbours.
-Eg: 500->107,474,499,206
+
+Line example: 500->107,474,499,206
 
 ## 2. ALTERNATIVE: Apply brute force to obtain list of neighbours
 `python3 bruteForce.py Rc (periodic|not_periodic)`
@@ -56,7 +57,8 @@ Files with static and dynamic data
 
 ### Output
 Generates file (default name: `out.txt`) where each line represents a particle and has each particle id followed by its neighbours.
-Line eg: 500->107,474,499,206
+
+Line example: 500->107,474,499,206
 
 ## 3. Originate OVITO '.xyz' input file to simulate results
 `python3 ovito.py id`
@@ -84,6 +86,7 @@ To view the simulation figure, follow this steps:
     - Column 5 - Color - R
     - Column 6 - Color - G
     - Column 7 - Color - B
+
 Once the figure shows, you can Render Active Viewport, where you can save it as a `.png` file.
 
 ### Extra Material
