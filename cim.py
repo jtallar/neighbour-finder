@@ -5,37 +5,71 @@ import math
 import json
 import sys
 
-# Read configurations from file
-with open("config.json") as file:
-    general_params = json.load(file)
+if len(sys.argv) < 3 or len(sys.argv) > 4:
+    print('Wrong number of args! Must run with\npython3 cim.py Rc (periodic|not_periodic) [M]')
+    sys.exit(1)
 
-dynamic_file = open(general_params["dynamic_file"], "r")
+# The radius for analysis of closeness between particles.
+Rc = float(sys.argv[1])
+if Rc < 0:
+    print('Interaction radio Rc must be positive!')
+    sys.exit(1)
+
+# State whether to read or not periodically.
+if sys.argv[2] != 'periodic' and sys.argv[2] != 'not_periodic':
+    print('Edge periodic condition must be given with periodic or not_periodic!')
+    sys.exit(1)
+periodic_cells = (sys.argv[2] == 'periodic')
+
+# Read configurations from file
+with open("filenameConfig.json") as file:
+    filename_params = json.load(file)
+
+dynamic_file = open(filename_params["dynamic_file"], "r")
 # First time in file.
 cur_time = float(dynamic_file.readline())
 
-static_file = open(general_params["static_file"], "r")
+static_file = open(filename_params["static_file"], "r")
 # The amount of particles is N.
 N = int(static_file.readline())
 # Simulation area is a square. Its side value is L.
 L = float(static_file.readline())
 
-# The radius for analysis of closeness between particles.
-# Input by arguments.
-Rc = 20
+# Top two radius will be saved to ensure condition applies correctly.
+two_max_radius = [0, 0]
+
+# Static fields for particle sub-i. Radius and Property as  ri pi. Properties not used
+particle_radius = []
+for line in static_file:
+    rad = float(line.split()[0]) # Ignoring particle property
+    particle_radius.append(rad)
+    # Save top two radius
+    if rad > two_max_radius[0]:
+        two_max_radius.pop(0)
+        two_max_radius.append(rad)
+        two_max_radius.sort()
+
+static_file.close()
 
 # Matrix is used to represent the entire simulation area divided in MxM zones.
-# It is required to be L / M > Rc
-# Input by arguments.
-M = 4
+# It is required to be L / M > Rc + rp max + rp max2
+max_m = L / (Rc + sum(two_max_radius))
+if max_m < 1:
+    print('Invalid data! No M satisfies L / M > Rc + rp max + rp max2.')
+    sys.exit(1)
+
+if len(sys.argv) == 4:
+    # M was given
+    M = int(sys.argv[3])
+    if M <= 0 or M > max_m:
+        print(f'M must satisfy L / M > Rc + rp max + rp max2! With this data, M < {max_m:.2f}')
+        sys.exit(1)
+else:
+    # Use optimal M: biggest M without surpassing max_m
+    M = int(max_m)
+    print(f'No M supplied. Using optimal value, M={M}')
+
 cell_width = L / M
-
-# State whether to read or not periodically.
-# Input by arguments.
-periodic_cells = True
-
-# Will iteratively read lines for each particle sub-i
-# Dynamic fields for particle sub-i. Position and speed as  xi yi vxi vyi
-# Static fields for particle sub-i. Radius and Property as  ri pi. Properties not used
 
 # [M+2][M+1], real points in [1:M][1:M]
 #   3    0   1   2   3
@@ -47,18 +81,12 @@ periodic_cells = True
 # ^ 
 # y, x -->
 
-# Top two radius will be saved to ensure condition applies correctly.
-two_max_radius = [0, 0]
-
+# Will iteratively read lines for each particle sub-i
+# Dynamic fields for particle sub-i. Position and speed as  xi yi vxi vyi
 head_matrix = np.full((M + 2, M + 1), None)
 for id in range(N):
     (x, y) = [float(i) for i in dynamic_file.readline().split()] # TODO: When speed added to generator.py, write (x, y, vx, vy) = ...
-    rad = float(static_file.readline().split()[0]) # Ignoring particle property
-    # Save top two radius
-    if rad > two_max_radius[0]:
-        two_max_radius.pop(0)
-        two_max_radius.append(rad)
-        two_max_radius.sort()
+    rad = particle_radius[id]
 
     cell_index = int(x / cell_width) + int(y / cell_width) * M
     (row, col) = (int(cell_index / M + 1), int(cell_index % M + 1))
@@ -80,7 +108,6 @@ for id in range(N):
             head_matrix[0][0] = obj.MoleculeNode(obj.Molecule(id + 1, x - L, y - L, rad), head_matrix[0][0])
 
 dynamic_file.close()
-static_file.close()
 
 neighbour_list = [set() for index in range(N)]
 for cell in range(M * M):
@@ -110,9 +137,10 @@ for cell in range(M * M):
                 next_cell_cur = next_cell_cur.next
             cell_cur = cell_cur.next
 
-with open(general_params["output_file"], 'w') as out_file:
+with open(filename_params["output_cim_file"], 'w') as out_file:
     id = 1
     for neighbour_set in neighbour_list:
         ids_string = ','.join(str(s) for s in neighbour_set)
         print(f'{id}->{ids_string}', file=out_file)
         id += 1
+    print(f'Wrote output at {filename_params["output_cim_file"]}')

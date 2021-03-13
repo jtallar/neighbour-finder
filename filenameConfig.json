@@ -1,5 +1,5 @@
 {
 	"static_file": "static.txt",
     "dynamic_file": "dynamic.txt",
-    "output_file": "out.txt"
+    "output_cim_file": "out.txt"
 }
