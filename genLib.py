@@ -11,7 +11,6 @@ def particles(n, side, rad):
         part.append(obj.Molecule(i + 1, random.uniform(0, side), random.uniform(0, side), rad if rad else random.uniform(0, MAX_RADIUS)))
     return part
 
-# TODO: Check rounding to 4 decimals.
 #Generate dynamic and static files, reading N and L from arg
 def data_files(n, side, particles, filename_json):
     static_file = open(filename_json["static_file"], "w")
